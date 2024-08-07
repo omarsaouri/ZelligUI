@@ -6,7 +6,7 @@ import { Text, View } from "react-native";
 export default function App() {
   return (
     <View tw="flex-1 items-center justify-center bg-white-500">
-      <Button title="BUTTON" textColor="white" />
+      <Button title="BUTTON" textColor="white" width={120} fontSize={18} />
       <StatusBar style="auto" />
     </View>
   );

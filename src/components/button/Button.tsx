@@ -1,5 +1,11 @@
 import React, { FC } from "react";
-import { TouchableOpacity, Text, StyleSheet, ViewStyle } from "react-native";
+import {
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  ViewStyle,
+  TextStyle,
+} from "react-native";
 import { styled } from "nativewind";
 
 const StyledTouchableOpacity = styled(
@@ -10,6 +16,25 @@ const StyledTouchableOpacity = styled(
 const StyledText = styled(Text, "text-white font-semibold");
 
 type Size = "sm" | "md" | "lg";
+type FontWeight =
+  | "100"
+  | "200"
+  | "300"
+  | "400"
+  | "500"
+  | "600"
+  | "700"
+  | "800"
+  | "900"
+  | "bold"
+  | "normal"
+  | "thin"
+  | "light"
+  | "medium"
+  | "semibold"
+  | "extrabold"
+  | "black";
+
 type ButtonProps = {
   title: string;
   className?: string;
@@ -21,6 +46,10 @@ type ButtonProps = {
   height?: number;
   width?: number;
   textColor?: string;
+  textWrap?: boolean;
+  fontSize?: number;
+  fontWeight?: FontWeight;
+  letterSpacing?: number;
   onPress: () => void;
 };
 
@@ -42,8 +71,13 @@ const Button: FC<ButtonProps> = ({
   width,
   height,
   textColor,
+  textWrap = true,
+  fontSize,
+  fontWeight,
+  letterSpacing,
 }) => {
   const dimensions = size ? sizeMap[size] : undefined;
+
   return (
     <StyledTouchableOpacity
       tw={className}
@@ -56,7 +90,17 @@ const Button: FC<ButtonProps> = ({
         style,
       ]}
     >
-      <StyledText style={[textColor ? { color: textColor } : undefined]}>
+      <StyledText
+        numberOfLines={textWrap ? 2 : 1}
+        style={[
+          textColor ? { color: textColor } : undefined,
+          fontSize ? { fontSize: fontSize } : undefined,
+          fontWeight
+            ? { fontWeight: fontWeight as TextStyle["fontWeight"] }
+            : undefined,
+          letterSpacing ? { letterSpacing: letterSpacing } : undefined,
+        ]}
+      >
         {title}
       </StyledText>
     </StyledTouchableOpacity>
